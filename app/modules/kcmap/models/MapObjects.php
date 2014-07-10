@@ -4,7 +4,7 @@ class MapObjects extends BaseModel {
 
     protected $table = 'kcmap_objects';
 
-    protected $fillable = ['title','color'];
+    protected $fillable = ['city_id','category_id','title','description'];
 
     public static $rules = array(
         'title' => 'required',
