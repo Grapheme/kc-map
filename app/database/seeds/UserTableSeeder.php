@@ -10,7 +10,7 @@ class UserTableSeeder extends Seeder{
             'group_id'=>1,
 			'name'=>'Администратор',
 			'surname'=>'',
-			'email'=>'admin@lessad.ru',
+			'email'=>'admin@kc-map.ru',
 			'active'=>1,
 			'password'=>Hash::make('grapheme1234'),
 			'photo'=>'',
