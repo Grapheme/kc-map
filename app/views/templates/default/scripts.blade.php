@@ -2,10 +2,7 @@
 {{HTML::script('js/vendor/jquery.min.js');}}
 @else
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="{{asset('
-    js / vendor / jquery.min.js
-    ');}}"><\/script>'
-    )</script>
+<script>window.jQuery || document.write('<script src="{{asset('js / vendor / jquery.min.js');}}"><\/script>')</script>
 @endif
 {{HTML::script('js/system/main.js');}}
 {{HTML::script('js/vendor/SmartNotification.min.js');}}

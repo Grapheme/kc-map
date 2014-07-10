@@ -155,7 +155,7 @@ class KcObjectsTableSeeder extends Seeder{
 </p>'
         ));
         MapObjects::create(array(
-            'city_id' => 3, 'category_id' => 3,
+            'city_id' => 4, 'category_id' => 3,
             'title' => 'Национальный культурный центр в а. Псыж, Абазинский район',
             'description' => '<p>
 	Срок реализации: 2005-2013 годы. <br>
