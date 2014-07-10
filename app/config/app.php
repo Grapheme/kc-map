@@ -10,10 +10,10 @@ return array(
 	'use_scripts_local' => FALSE,
 	
 	'default_page_title' => 'ЛесСад',
-	'template' => 'default',	
+	'template' => 'default',
 	'manifest' => storage_path('meta'),
 
-	'debug' => TRUE,
+	'debug' => FALSE,
 	'url' => 'http://lessad.ru/',
 	'timezone' => 'UTC',
 	'locale' => 'ru',
@@ -47,6 +47,8 @@ return array(
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
+
+        'Barryvdh\Debugbar\ServiceProvider',
 		'Way\Generators\GeneratorsServiceProvider',
 		'Intervention\Image\ImageServiceProvider',
         'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider'

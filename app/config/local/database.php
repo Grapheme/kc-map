@@ -13,7 +13,7 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'lessad',
+			'database'  => 'kc_map',
 			'username'  => 'root',
 			'password'  => '',
 			'charset'   => 'utf8',

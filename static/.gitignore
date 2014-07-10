@@ -1,6 +1,0 @@
-.idea
-public/uploads
-vendor
-composer.phar
-composer.lock
-.htaccess

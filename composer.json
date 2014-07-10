@@ -7,8 +7,9 @@
 		"laravel/framework": "4.2.*",
 		"way/generators": "*",
 		"intervention/image": "dev-master",
-        "barryvdh/laravel-ide-helper": "1.*",
-		"doctrine/dbal": "2.5.x-dev"
+        "barryvdh/laravel-ide-helper": "1.x-dev",
+		"doctrine/dbal": "2.5.x-dev",
+		"barryvdh/laravel-debugbar": "1.x-dev"
 	},
 	"autoload": {
 		"classmap": [
