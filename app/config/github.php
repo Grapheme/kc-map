@@ -7,7 +7,7 @@ return array(
     'git_path'          => '/usr/bin/',
     'remote'            => 'origin',
     'branch'            => 'master',
-    'repository_name'   => 'lessad',
+    'repository_name'   => 'kc-map',
     'repository_id'     => 21561647,
     'user_group'        => 'www-data',
     'user_name'         => 'www-data',
