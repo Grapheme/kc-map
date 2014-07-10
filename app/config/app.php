@@ -9,12 +9,12 @@ return array(
 	'use_css_local' => FALSE,
 	'use_scripts_local' => FALSE,
 	
-	'default_page_title' => 'ЛесСад',
+	'default_page_title' => 'KC-map',
 	'template' => 'default',
 	'manifest' => storage_path('meta'),
 
 	'debug' => FALSE,
-	'url' => 'http://lessad.ru/',
+	'url' => 'http://kc-map.ru/',
 	'timezone' => 'UTC',
 	'locale' => 'ru',
 	#'locales' => array('ru', 'en', 'de'),
