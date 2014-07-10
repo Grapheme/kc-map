@@ -4,7 +4,7 @@ class City extends BaseModel{
 
     protected $table = 'kcmap_cities';
 
-	protected $fillable = ['title','color'];
+	protected $fillable = array('title','color');
 
     public function map_objects(){
 
