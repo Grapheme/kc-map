@@ -3,7 +3,7 @@
 class GithubController extends \BaseController {
 
     public static $name = 'github';
-    public static $group = 'production';
+    public static $group = 'github';
 
     public function __construct(){
 
@@ -26,17 +26,17 @@ class GithubController extends \BaseController {
 
     public static function returnExtFormElements() {
 
-        return TRUE;
+        return NULL;
     }
 
     public static function returnActions() {
 
-        return TRUE;
+        return NULL;
     }
 
     public static function returnInfo() {
 
-        return TRUE;
+        return NULL;
     }
 
     public function gitDeployProject($git_branch,$extends = null){

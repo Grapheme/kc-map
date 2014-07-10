@@ -1,9 +1,9 @@
 <?php
 
-class AdminReviewsController extends BaseController {
+class AdminKcmapController extends BaseController {
 
-    public static $name = 'reviews';
-    public static $group = 'reviews';
+    public static $name = 'kcmap';
+    public static $group = 'kcmap';
 
     /****************************************************************************/
     ## Routing rules of module
@@ -36,7 +36,7 @@ class AdminReviewsController extends BaseController {
         return array(
             'name' => self::$name,
             'group' => self::$group,
-            'title' => 'Отзывы',
+            'title' => 'Перечень объектов',
             'visible' => 1,
         );
     }
@@ -45,21 +45,21 @@ class AdminReviewsController extends BaseController {
     public static function returnMenu() {
         return array(
             array(
-                'title' => 'Отзывы',
+                'title' => 'Перечень объектов',
                 'link' => self::$group,
-                'class' => 'fa-comments-o',
-                'permit' => 'view',
+                'class' => 'fa-location-arrow',
+                'permit' => 'kcmap',
             ),
         );
     }
 
     /****************************************************************************/
-    protected $review;
+    protected $map_object;
 
-    public function __construct(Reviews $review){
+    public function __construct(MapObjects $map_object){
 
-        $this->review = $review;
-        $this->beforeFilter('reviews');
+        $this->map_object = $map_object;
+        $this->beforeFilter('map_object');
         $this->locales = Config::get('app.locales');
 
         View::share('module_name', self::$name);
@@ -73,26 +73,26 @@ class AdminReviewsController extends BaseController {
 
     public function getIndex(){
 
-        $reviews = $this->review->orderBy('published_at', 'DESC')->orderBy('id','DESC')->get();
-        return View::make($this->tpl.'index', array('reviews' => $reviews, 'locales' => $this->locales));
+        $map_objects = $this->map_object->orderBy('id','DESC')->with('cities')->with('categories')->paginate(15);
+        return View::make($this->tpl.'index', array('map_objects' => $map_objects, 'locales' => $this->locales));
     }
 
     public function getCreate(){
 
-        $this->moduleActionPermission('reviews','create');
+        $this->moduleActionPermission('kcmap','create');
         return View::make($this->tpl.'create', array('locales' => $this->locales));
     }
 
     public function postStore(){
 
-        $this->moduleActionPermission('reviews','create');
+        $this->moduleActionPermission('kcmap','create');
         $json_request = array('status'=>FALSE,'responseText'=>'','responseErrorText'=>'','redirect'=>FALSE);
         if(Request::ajax()):
-            $validator = Validator::make(Input::all(), Reviews::$rules);
+            $validator = Validator::make(Input::all(), MapObjects::$rules);
             if($validator->passes()):
-                self::saveReviewModel();
-                $json_request['responseText'] = 'Отзыв создан';
-                $json_request['redirect'] = link::auth('reviews');
+                self::saveKcMapModel();
+                $json_request['responseText'] = 'Объект создан';
+                $json_request['redirect'] = link::auth('kcmap');
                 $json_request['status'] = TRUE;
             else:
                 $json_request['responseText'] = 'Неверно заполнены поля';
@@ -106,25 +106,24 @@ class AdminReviewsController extends BaseController {
 
     public function getEdit($id){
 
-        $this->moduleActionPermission('reviews','edit');
-        if(!$review = $this->review->find($id)):
+        $this->moduleActionPermission('kcmap','edit');
+        if(!$map_object = $this->map_object->find($id)):
             return App::abort(404);
         endif;
-        $gall = Rel_mod_gallery::where('module','reviews')->where('unit_id', $id)->first();
-        return View::make($this->tpl.'edit', array('review'=>$review, 'locales' => $this->locales, 'gall' => $gall));
+        return View::make($this->tpl.'edit', array('map_object'=>$map_object, 'locales' => $this->locales));
     }
 
     public function postUpdate($id){
 
-        $this->moduleActionPermission('reviews','edit');
+        $this->moduleActionPermission('kcmap','edit');
         $json_request = array('status'=>FALSE,'responseText'=>'','responseErrorText'=>'','redirect'=>FALSE);
         if(Request::ajax()):
-            $validator = Validator::make(Input::all(), Reviews::$rules);
+            $validator = Validator::make(Input::all(), MapObjects::$rules);
             if($validator->passes()):
-                $review = $this->review->find($id);
-                self::saveReviewModel($review);
-                $json_request['responseText'] = 'Отзыв сохранен';
-                $json_request['redirect'] = link::auth('reviews');
+                $map_object = $this->map_object->find($id);
+                self::saveKcMapModel($map_object);
+                $json_request['responseText'] = 'Объект сохранен';
+                $json_request['redirect'] = link::auth('kcmap');
                 $json_request['status'] = TRUE;
             else:
                 $json_request['responseText'] = 'Неверно заполнены поля';
@@ -138,55 +137,35 @@ class AdminReviewsController extends BaseController {
 
     public function deleteDestroy($id){
 
-        $this->moduleActionPermission('news', 'delete');
+        $this->moduleActionPermission('kcmap', 'delete');
         $json_request = array('status'=>FALSE, 'responseText'=>'');
         if(Request::ajax()):
-            ## Следующая строка почему-то не работает:
-            #$b = $this->news_meta->where('news_id', $id)->delete;
-            ## Ну да ладно, удалим все языковые версии вот так:
-            $metas = $this->news_meta->where('news_id', $id)->get();
-            foreach ($metas as $meta)
-                @$meta->delete();
-            ## Удаляем саму страницу
-            $a = @$this->news->find($id)->delete();
-            ## Возвращаем сообщение чт овсе ОК
-            #if( $a && $b ):
-            $json_request['responseText'] = 'Новость удалена';
+            $this->map_object->find($id)->delete();
+            $json_request['responseText'] = 'Объект удален';
             $json_request['status'] = TRUE;
-        #endif;
         else:
             return App::abort(404);
         endif;
         return Response::json($json_request,200);
     }
 
-    private function saveReviewModel($review = NULL){
+    private function saveKcMapModel($map_object = NULL){
 
-        if(is_null($review)):
-            $review = $this->review;
+        if(is_null($map_object)):
+            $map_object = $this->map_object;
         endif;
 
-        ## Собираем значения объекта
-        if(Allow::enabled_module('templates')):
-            $review->template = Input::get('template');
-        else:
-            $review->template = 'default';
-        endif;
-        $review->publication = 1;
-        $review->published_at = date("Y-m-d", strtotime(Input::get('published_at')));
-        $slug = Input::get('slug');
+        $map_object->city_id = Input::get('city');
+        $map_object->category_id = Input::get('category');
 
-        $locale = Config::get('app.locale');
-
-        $review->name = Input::get('name.'.$locale);
-        $review->position = Input::get('position.'.$locale);
-        $review->content = Input::get('content.'.$locale);
-        $review->slug = $slug;
-        $review->image_id =  Input::get('image');
+        $map_object->title = Input::get('title');
+        $map_object->description = Input::get('description');
+        $map_object->address = Input::get('address');
+        $map_object->coordinates = json_encode(array_merge(Input::get('coordinates')));
         ## Сохраняем в БД
-        $review->save();
-        $review->touch();
-        return $review->id;
+        $map_object->save();
+        $map_object->touch();
+        return $map_object->id;
     }
 
 }

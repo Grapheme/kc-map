@@ -1,105 +1,69 @@
-{{ Form::model($review,array('url'=>link::auth('reviews/update/'.$review->id),'class'=>'smart-form','id'=>'review-form','role'=>'form','method'=>'post')) }}
+{{ Form::model($map_object,array('url'=>link::auth('kcmap/update/'.$map_object->id),'class'=>'smart-form','id'=>'kcmap-form','role'=>'form','method'=>'post')) }}
 
-
-<div class="well">
-    <header>Для редактирования отзыва заполните форму:</header>
-    <fieldset>
-        <section class="col col-6">
-            <label class="label">Идентификатор отзыва</label>
-            <label class="input col-11"> <i class="icon-append fa fa-list-alt"></i>
-                {{ Form::text('slug', $review->slug) }}
-            </label>
-            <div class="note">Может содержать <strong>только</strong> английские буквы в нижнем регистре, цифры, знаки подчеркивания и тире</div>
-        </section>
-        @if(Allow::valid_access('templates'))
-        <section class="col col-6">
-            <label class="label">
-                Шаблон новости:
-                <div class="note">Если обычная отзыв - то выбирайте reviews.</div>
-            </label>
-            <label class="select col-11">
-                @foreach($templates as $template)
-                <?php $temps[$template->name] = $template->name;?>
-                @endforeach
-                {{ Form::select('template', $temps, $review->template, array('class'=>'template-change','autocomplete'=>'off')) }} <i></i>
-            </label>
-        </section>
-        @endif
-        <section class="col col-3">
-            <label class="label">Дата публикации:</label>
-            <label class="input col-3">
-                <input type="text" name="published_at" value="<?=date("d.m.Y", strtotime($review->published_at))?>" class="datepicker" />
-            </label>
-        </section>
-    </fieldset>
-</div>
-
-
-<!-- Tabs -->
-<ul class="nav nav-tabs margin-top-10">
-    @foreach ($locales as $l => $locale)
-    <li class="{{ $l === 0 ? 'active' : '' }}">
-        <a href="#lang_{{ $locale }}" data-toggle="tab">{{ $locale }}</a>
-    </li>
-    @endforeach
-</ul>
-
-
-<!-- Fields -->
 <div class="row margin-top-10">
-    <div class="tab-content">
-        @foreach ($locales as $l => $locale)
-        <div class="tab-pane{{ $l === 0 ? ' active' : '' }}" id="lang_{{ $locale }}">
-
-            <!-- Form -->
-            <section class="col col-6">
-                <div class="well">
-                    <header>{{ $locale }}-версия:</header>
-                    <fieldset>
-
-                        <section>
-                            <label class="label">Имя отправителя</label>
-                            <label class="input"> <i class="icon-append fa fa-list-alt"></i>
-                                {{ Form::text('name['.$locale.']',$review->name) }}
-                            </label>
-                        </section>
-                        <section>
-                            <label class="label">Должность отправителя</label>
-                            <label class="input"> <i class="icon-append fa fa-list-alt"></i>
-                                {{ Form::text('position['.$locale.']',$review->position) }}
-                            </label>
-                        </section>
-                        @if (Allow::module('galleries'))
-                        <section>
-                            <label class="label">Изображение</label>
-                            <label class="input">
-                                {{ ExtForm::image('image',$review->photo()->first()) }}
-                            </label>
-                        </section>
-                        @endif
-                        <section>
-                            <label class="label">Содержание</label>
-                            <label class="textarea">
-                                {{ Form::textarea('content['.$locale.']', $review->content, array('class'=>'redactor redactor_450')) }}
-                            </label>
-                        </section>
-                    </fieldset>
+    <section class="col col-6">
+        <div class="well">
+            <header>Для редактирования объекта заполните форму:</header>
+            <fieldset>
+                <section>
+                    <label class="label">Наименование</label>
+                    <label class="input"> <i class="icon-append fa fa-list-alt"></i>
+                        {{ Form::text('title',NULL) }}
+                    </label>
+                </section>
+                <section>
+                    <label class="label">Регион</label>
+                    <label class="select">
+                        {{ Form::select('city',
+                        City::orderBy('title')->lists('title','id'),$map_object->city_id,array('autocomplete'=>'off'))
+                        }} <i></i>
+                    </label>
+                </section>
+                <section>
+                    <label class="label">Категория</label>
+                    <label class="select">
+                        {{ Form::select('category',
+                        Category::orderBy('title')->lists('title','id'),$map_object->category_id,array('autocomplete'=>'off'))
+                        }} <i></i>
+                    </label>
+                </section>
+            </fieldset>
+            <fieldset>
+                <section>
+                    <label class="label">Адрес</label>
+                    <label class="input"> <i class="icon-append fa fa-home"></i>
+                        {{ Form::text('address',NULL) }}
+                    </label>
+                </section>
+                <?php
+                $coordinates = json_decode($map_object->coordinates, TRUE);
+                ?>
+                <div class="row">
+                    <section class="col col-2">
+                        <label class="label">Координаты</label>
+                        <label class="input">
+                            {{ Form::text('coordinates[x]',$coordinates['x']) }}
+                        </label>
+                    </section>
+                    <section class="col col-2">
+                        <label class="label">&nbsp;</label>
+                        <label class="input">
+                            {{ Form::text('coordinates[y]',$coordinates['y']) }}
+                        </label>
+                    </section>
                 </div>
-            </section>
+            </fieldset>
+            <fieldset>
+                <section>
+                    <label class="label">Примечание</label>
+                    <label class="textarea">
+                        {{ Form::textarea('description',NULL,array('class'=>'redactor redactor_450')) }}
+                    </label>
+                </section>
+            </fieldset>
         </div>
-        @endforeach
-    </div>
+    </section>
 </div>
-
-<div style="float:none; clear:both;"></div>
-
-@if(Allow::enabled_module('galleries') && 0)
-<section class="col-12">
-    @include('modules.galleries.abstract')
-    @include('modules.galleries.uploaded', array('gall' => $gall))
-</section>
-@endif
-
 <section class="col-6">
     <footer>
         <a class="btn btn-default no-margin regular-10 uppercase pull-left btn-spinner" href="{{URL::previous()}}">
@@ -110,6 +74,5 @@
         </button>
     </footer>
 </section>
-
 
 {{ Form::close() }}

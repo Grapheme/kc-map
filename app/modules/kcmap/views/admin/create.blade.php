@@ -12,7 +12,7 @@
 
 
 @section('scripts')
-{{ HTML::script('js/modules/reviews.js') }}
+{{ HTML::script('js/modules/kcmap.js') }}
 <script type="text/javascript">
     if(typeof pageSetUp === 'function'){pageSetUp();}
     if(typeof runFormValidation === 'function'){
@@ -21,7 +21,6 @@
         loadScript("{{ asset('js/vendor/jquery-form.min.js'); }}");
     }
 </script>
-{{ HTML::script('js/modules/gallery.js') }}
 <script src="{{ link::path('js/vendor/redactor.min.js') }}"></script>
 <script src="{{ link::path('js/system/redactor-config.js') }}"></script>
 @stop
