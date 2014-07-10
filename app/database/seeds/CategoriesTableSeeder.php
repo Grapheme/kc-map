@@ -1,7 +1,7 @@
 <?php
 
 
-class CategoriesSeederTableSeeder extends Seeder {
+class CategoriesTableSeeder extends Seeder {
 
 	public function run(){
 
