@@ -1,7 +1,8 @@
 <?php
 $cities = City::orderBy('title')->with(array('map_objects' => function ($query) {
-        $query->groupBy('category_id');
         $query->with('categories');
+        $query->groupBy('city_id');
+        $query->groupBy('category_id');
     }))->get();
 ?>
 
