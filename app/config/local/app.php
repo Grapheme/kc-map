@@ -10,5 +10,5 @@ return array(
 	'use_scripts_local' => TRUE,
 	
 	'debug' => TRUE,
-	'url' => 'http://lessad/',
+	'url' => 'http://kc-map/',
 );
