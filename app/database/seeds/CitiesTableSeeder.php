@@ -1,6 +1,6 @@
 <?php
 
-class CitiesSeederTableSeeder extends Seeder {
+class CitiesTableSeeder extends Seeder {
 
 	public function run(){
 
