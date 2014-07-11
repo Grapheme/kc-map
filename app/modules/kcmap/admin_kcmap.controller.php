@@ -73,7 +73,17 @@ class AdminKcmapController extends BaseController {
 
     public function getIndex(){
 
-        $map_objects = $this->map_object->orderBy('id','DESC')->with('cities')->with('categories')->paginate(15);
+        $map_objects = $this->map_object->orderBy('id','DESC')->with('cities')->with('categories');
+
+            if (Input::get('city')):
+                $map_objects = $map_objects->where('city_id',Input::get('city'));
+            endif;
+            if (Input::get('category')):
+                $map_objects = $map_objects->where('category_id',Input::get('category'));
+            endif;
+
+        $map_objects = $map_objects->paginate(15);
+        $map_objects->appends(array('city'=>(int)Input::get('city'),'category'=>(int)Input::get('category')));
         return View::make($this->tpl.'index', array('map_objects' => $map_objects, 'locales' => $this->locales));
     }
 
