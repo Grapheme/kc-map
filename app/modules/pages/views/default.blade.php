@@ -36,20 +36,13 @@
 
 @section('scripts')
 {{ HTML::script('//api-maps.yandex.ru/2.1/?lang=ru_RU') }}
+{{ HTML::script('get-objects') }}
 <script type="application/javascript">
     var KcMap = KcMap || {};
     ymaps.ready(function(){
         KcMap = new ymaps.Map('map',{center: [55.76, 37.64],zoom: 7});
         refreshDataMap();
     });
-
-    var all_objects = [];
-    <?php foreach(MapObjects::orderBy('title')->with('categories')->get() as $object): ?>
-    object = {city_id : {{ $object->city_id }},category_id : {{ $object->category_id }}, address: "{{ addslashes($object->address) }}", coordinate :JSON.stringify({{ $object->coordinates }}),
-            balloon : {balloonContentHeader: "{{ addslashes($object->title) }}}",balloonContentBody: "{{ str_replace("\n",'',addslashes($object->description)) }}",balloonContentFooter: "",
-                hintContent: "{{{ $object->title }}}",},marker : {preset: 'islands#dotIcon',iconColor: '{{ $object->categories->color }}'}};
-    all_objects.push(object);
-    <?php endforeach; ?>
 
     function refreshDataMap(){
         KcMap.geoObjects.removeAll();
