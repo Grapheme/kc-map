@@ -85,7 +85,7 @@ class AdminNewsController extends BaseController {
 	public function getCreate(){
 
 		$this->moduleActionPermission('news','create');
-		return View::make($this->tpl.'create', array('templates'=>Template::all(), 'languages'=>Language::all(), 'locales' => $this->locales));
+		return View::make($this->tpl.'create', array('locales' => $this->locales));
 	}
 
 	public function postStore(){
@@ -134,7 +134,7 @@ class AdminNewsController extends BaseController {
 		$gall = Rel_mod_gallery::where('module', 'news')->where('unit_id', $id)->first();
 		#print_r($gall->photos);
 
-		return View::make($this->tpl.'edit', array('news'=>$news, 'news_meta'=>@$news_meta, 'templates'=>Template::all(),'languages'=>Language::all(), 'locales' => $this->locales, 'gall' => $gall));
+		return View::make($this->tpl.'edit', array('news'=>$news, 'news_meta'=>@$news_meta, 'locales' => $this->locales, 'gall' => $gall));
 	}
 
 	public function postUpdate($id){
