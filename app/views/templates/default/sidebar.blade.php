@@ -6,13 +6,13 @@ $cities = City::orderBy('title')->with(array('map_objects' => function ($query) 
     }))->get();
 ?>
 
-<aside class="aside col-xs-2 col-sm-2 col-md-2 col-lg-2">
-    <h2 class="aside-header">Объекты</h2>
-    <ul class="aside-list list-unstyled">
+<aside class="aside clearfix">
+    <h2 class="aside-header">Объекты на карте</h2>
+    <ul class="aside-list list-unstyled clearfix">
         @foreach($cities as $city)
         @if($city->map_objects->count())
-        <li>{{ $city->title }}</li>
-        <ul class="aside-list list-unstyled">
+        <li id="parent-{{ $city->id }}">{{ $city->title }}</li><br/>
+        <ul id="child-{{ $city->id }}" class="aside-list inside-block list-unstyled clearfix">
             @foreach($city->map_objects as $object)
             @if(isset($object->categories->title))
             <li>

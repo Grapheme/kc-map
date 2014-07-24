@@ -19,7 +19,7 @@
 
     @include('templates.default.header')
 
-    <div id="content" style="margin: 20px;">
+    <div id="content clearfix">
         @include('templates.default.sidebar')
         @yield('content', @$content)
     </div>

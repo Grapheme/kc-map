@@ -2,29 +2,74 @@
 
 @section('style')
 <style type="text/css">
-    html, body, #map {
-        width: 100%; padding: 0; margin: 0;
-        font-family: Arial;
+    html, body {
+        height: 100%; width: 100%; padding: 0; margin: 0;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 12px;
+        line-height: 1.4em;
+    }
+    ul {
+    	margin: 0;
+    	padding: 0;
+    	list-style: none;
+    }
+    ul.aside-list > li {
+    	margin: 0 0 0 1.5em;
+    	line-height: 1.7em;
+    }
+    ul.inside-block {
+    	display: none;
+    }
+    h2 {
+    	font-weight: 300;
+    	margin: 0 0 1em;
+    }
+    h2.aside-header + ul.aside-list > li {
+    	font-weight: 600;
+    	margin: 1em 0 0.5em 0;
+    	border-bottom: 1px dotted;
+    	display: inline-block;
+    	line-height: 1.2em;
+    	cursor: pointer;
     }
 
+	.map-wrapper {
+		width: 68%;
+		float: left;
+		height: 600px;
+		max-height: 90%;
+	}
+	.ymaps-map .ymaps-balloon-content__header {
+		font: 600 16px 'Open Sans', sans-serif !important;
+	}
+	.ymaps-map p, .ymaps-map *, .ymaps-map *:before, .ymaps-map *:after {
+		font: 400 12px/1.4em 'Open Sans', sans-serif !important;
+	}
+
     #map {
-        height: 500px;
+        height: 600px;
+        width: 100%;
+    }
+    .aside {
+    	width: 30%;
+    	max-width: 320px;
+    	float: left;
+    	padding: 0 1em 0 2em;
     }
     /* Оформление меню (начало)*/
     .menu {
         list-style: none;
         padding: 5px;
-
         margin: 0;
     }
     .submenu {
         list-style: none;
 
-        margin: 0 0 0 20px;
+        margin: 0 0 0 5px;
         padding: 0;
     }
     .submenu li {
-        font-size: 90%;
+        
     }
     /* Оформление меню (конец)*/
 </style>
@@ -38,9 +83,16 @@
 {{ HTML::script('//api-maps.yandex.ru/2.1/?lang=ru_RU') }}
 {{ HTML::script('get-objects') }}
 <script type="application/javascript">
+	$(function(){
+		$('h2.aside-header + ul.aside-list > li').click(function(){
+			var id = $(this).attr('id').replace('parent-',''); 
+			$('#child-'+id).toggle();
+		});
+	})
+
     var KcMap = KcMap || {};
     ymaps.ready(function(){
-        KcMap = new ymaps.Map('map',{center: [44.226863,42.04677],zoom: 8,controls: ['zoomControl', 'fullscreenControl']});
+        KcMap = new ymaps.Map('map',{center: [44.226863,42.04677],zoom: 9,controls: ['zoomControl', 'fullscreenControl']});
         refreshDataMap();
     });
     function refreshDataMap(){
@@ -79,7 +131,7 @@
                 iconColor: object.marker.iconColor
             });
             KcMap.geoObjects.add(newPlacemark);
-            KcMap.setCenter([44.226863,42.04677],8,{checkZoomRange: true});
+            KcMap.setCenter([44.226863,42.04677],9,{checkZoomRange: true});
         });
 
     }
