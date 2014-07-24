@@ -136,7 +136,6 @@
 
     }
     function setMarkerByCoordinate(object) {
-        console.log(object.coordinate);
         KcMap.geoObjects
             .add(new ymaps.Placemark([object.coordinate.x, object.coordinate.y], {
                 hintContent : object.balloon.hintContent,
@@ -147,6 +146,8 @@
                 preset: object.marker.preset,
                 iconColor: object.marker.iconColor
             }));
+        KcMap.geoObjects.add(newPlacemark);
+        KcMap.setCenter([44.226863,42.04677],8,{checkZoomRange: true});
     }
 
     $(function () {
