@@ -5,7 +5,7 @@ class NewsController extends BaseController {
     public static $name = 'news_public';
     public static $group = 'news';
 
-    public static $prefix_url = 'news';
+    public static $prefix_url = FALSE;
 
     public static function returnRoutes($prefix = null) {
 
