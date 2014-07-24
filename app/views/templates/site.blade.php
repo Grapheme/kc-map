@@ -8,7 +8,7 @@
 <!--[if gt IE 8]><!-->
 <html class="no-js"> <!--<![endif]-->
 <head>
-    @include('templates.default.head')
+    @include('templates.site.head')
     @yield('style')
 </head>
 <body>
@@ -17,15 +17,15 @@
         your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    @include('templates.default.header')
+    @include('templates.site.header')
 
     <div id="content clearfix">
-        @include('templates.default.sidebar')
+        @include('templates.site.sidebar')
         @yield('content', @$content)
     </div>
 
-    @include('templates.default.footer')
-    @include('templates.default.scripts')
+    @include('templates.site.footer')
+    @include('templates.site.scripts')
     @yield('scripts')
 </body>
 </html>
