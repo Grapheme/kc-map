@@ -38,7 +38,6 @@ class Helper {
         return false;
     }
 
-
     public static function layout($file = '') {
         $layout = Config::get('app.template');
         if (!$layout)

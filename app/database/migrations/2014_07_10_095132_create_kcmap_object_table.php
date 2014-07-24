@@ -10,6 +10,7 @@ class CreateKcmapObjectTable extends Migration {
 			$table->increments('id');
             $table->integer('city_id')->unsigned()->default(0)->index();
             $table->integer('category_id')->unsigned()->default(0)->index();
+            $table->integer('type_id')->unsigned()->default(0)->index();
 
 			$table->string('title')->nullable();
 			$table->text('description')->nullable();
@@ -21,6 +22,7 @@ class CreateKcmapObjectTable extends Migration {
 
             $table->foreign('city_id')->references('id')->on('kcmap_cities')->onDelete('cascade');
             $table->foreign('category_id')->references('id')->on('kcmap_categories')->onDelete('cascade');
+            $table->foreign('type_id')->references('id')->on('kcmap_objects_types')->onDelete('cascade');
 		});
 	}
 

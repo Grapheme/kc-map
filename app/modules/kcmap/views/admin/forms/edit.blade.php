@@ -27,6 +27,13 @@
                         }} <i></i>
                     </label>
                 </section>
+                 <section>
+                    <label class="label">Тип</label>
+                    <label class="select">
+                        {{ Form::select('type',
+                        KcMapObjecType::orderBy('title')->lists('title','id'),$map_object->type_id,array('autocomplete'=>'off')) }} <i></i>
+                    </label>
+                </section>
             </fieldset>
             <fieldset>
                 <section>

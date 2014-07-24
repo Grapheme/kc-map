@@ -60,4 +60,38 @@ class BaseController extends Controller {
         return View::make(implode('.', $parts));
     }
 
+    public function getUploadedFile($tmp_file = null){
+
+        if (Input::hasFile('file')):
+            $fileName = time()."_".rand(1000, 1999).'.'.Input::file('file')->getClientOriginalExtension();
+            Input::file('file')->move(public_path(Config::get('app-default.upload_dir').'/'), $fileName);
+            return Config::get('app-default.upload_dir').'/'.$fileName;
+        endif;
+        return null;
+    }
+
+    public static function getValueInObject($array,$key = 'id'){
+
+        $result = array();
+        if(!empty($array)):
+            foreach ($array as $index => $values):
+                $result[] = $values->$key;
+            endforeach;
+        endif;
+        return $result;
+    }
+
+    public function templates($path = '') {
+
+        $templates = array();
+        $temp = glob($path."/views/*");
+        foreach ($temp as $t => $tmp) {
+            if (is_dir($tmp))
+                continue;
+            $name = basename($tmp);
+            $name = str_replace(".blade.php", "", $name);
+            $templates[] = $name;
+        }
+        return $templates;
+    }
 }

@@ -167,12 +167,12 @@ class AdminKcmapController extends BaseController {
 
         $map_object->city_id = Input::get('city');
         $map_object->category_id = Input::get('category');
+        $map_object->type_id = Input::get('type');
 
         $map_object->title = Input::get('title');
         $map_object->description = Input::get('description');
         $map_object->address = Input::get('address');
         $map_object->coordinates = json_encode(array_merge(Input::get('coordinates')));
-        $map_object-> hexColor();
         ## Сохраняем в БД
         $map_object->save();
         $map_object->touch();

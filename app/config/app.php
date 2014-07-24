@@ -10,7 +10,7 @@ return array(
 	'use_scripts_local' => FALSE,
 	
 	'default_page_title' => 'KC-map',
-	'template' => 'default',
+	'template' => 'site',
 	'manifest' => storage_path('meta'),
 
 	'debug' => FALSE,

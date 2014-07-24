@@ -117,7 +117,7 @@ class PagesController extends BaseController {
         #echo $page->template;
 
 		$content = self::content_render($page_meta->content);
-		return View::make(
+        return View::make(
 		    $this->tpl.$page->template,
 		    array(
 		        'page_title' => $page_meta->seo_title,

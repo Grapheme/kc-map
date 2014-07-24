@@ -20,4 +20,8 @@ class MapObjects extends BaseModel {
     public function categories(){
         return $this->belongsTo('Category','category_id');
     }
+
+    public function types(){
+        return $this->belongsTo('KcMapObjecType','type_id');
+    }
 }
