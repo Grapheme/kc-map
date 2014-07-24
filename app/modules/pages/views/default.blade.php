@@ -41,6 +41,7 @@
 	}
 	.ymaps-map .ymaps-balloon-content__header {
 		font: 600 16px 'Open Sans', sans-serif !important;
+		text-align: left !important;
 	}
 	.ymaps-map p, .ymaps-map *, .ymaps-map *:before, .ymaps-map *:after {
 		font: 400 12px/1.4em 'Open Sans', sans-serif !important;
