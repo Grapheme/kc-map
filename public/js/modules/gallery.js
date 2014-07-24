@@ -21,7 +21,7 @@
 				el, {
                     url: "/admin/galleries/abstractupload",
                     addRemoveLinks : true,
-                    maxFilesize: 0.5,
+                    maxFilesize: 5.0,
                     dictResponseError: 'Error uploading file!'
 				}
 			);
@@ -69,7 +69,7 @@
 				el, {
                     url: "/admin/galleries/singleupload",
                     addRemoveLinks : true,
-                    maxFilesize: 0.5,
+                    maxFilesize: 5.0,
                     dictResponseError: 'Error uploading file!',
                     dictDefaultMessage: 'dictDefaultMessage',
                     uploadMultiple: false,

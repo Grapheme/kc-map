@@ -5,15 +5,8 @@ use Illuminate\Database\Schema\Blueprint;
 
 class CreateCategoriesTable extends Migration {
 
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
-	public function up()
-	{
-		Schema::create('kcmap_categories', function(Blueprint $table)
-		{
+	public function up(){
+		Schema::create('kcmap_categories', function(Blueprint $table){
 			$table->increments('id');
 			$table->string('title')->unique()->nullable();
 			$table->string('color')->nullable();
@@ -22,13 +15,7 @@ class CreateCategoriesTable extends Migration {
 	}
 
 
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
+	public function down()	{
 		Schema::drop('kcmap_categories');
 	}
 

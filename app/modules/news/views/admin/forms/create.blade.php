@@ -36,14 +36,11 @@
         </li>
     @endforeach
     </ul>
-
-
     <!-- Fields -->
 	<div class="row margin-top-10">
         <div class="tab-content">
         @foreach ($locales as $l => $locale)
             <div class="tab-pane{{ $l === 0 ? ' active' : '' }}" id="lang_{{ $locale }}">
-
                 <!-- Form -->
                 <section class="col col-6">
                     <div class="well">
@@ -55,6 +52,14 @@
                                     {{ Form::text('title['.$locale.']','') }}
                                 </label>
                             </section>
+                             @if (Allow::module('galleries'))
+                            <section>
+                                <label class="label">Изображение</label>
+                                <label class="input">
+                                    {{ ExtForm::image('image', '') }}
+                                </label>
+                            </section>
+                            @endif
                             <section>
                                 <label class="label">Анонс</label>
                                 <label class="input">
@@ -78,21 +83,17 @@
         		</section>
             	@endif
             	<!-- /Form -->
-
             </div>
         @endforeach
         </div>
    	</div>
-
 	<div style="float:none; clear:both;"></div>
-
     @if(Allow::enabled_module('galleries') && 0)
     <section class="col-12">
 		@include('modules.galleries.abstract')
 		@include('modules.galleries.uploaded', array('gallery' => $gall))
 	</section>
     @endif
-
     <section class="col-6">
         <footer>
         	<a class="btn btn-default no-margin regular-10 uppercase pull-left btn-spinner" href="{{URL::previous()}}">
@@ -103,6 +104,4 @@
         	</button>
         </footer>
     </section>
-
-
 {{ Form::close() }}

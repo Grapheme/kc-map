@@ -22,17 +22,15 @@ class I18nPage extends Eloquent {
 		if(View::exists('templates.'.$template.'.'.$menu_template)):
 			return View::make('templates.'.$template.'.'.$menu_template,compact('menu'))->render();
 		elseif(View::exists('templates.default.'.$menu_template)):
-			return View::make('templates.default.'.$menu_template,compact('menu'))->render();
+            return View::make('templates.default.'.$menu_template,compact('menu'))->render();
 		else:
 			return App::abort(404,'Отсутствует шаблон: templates/'.$template.'/'.$menu_template);
 		endif;
-
 	}
 
     #/*
     public function metas() {
-        return $this->hasMany('I18nPageMeta');
+        return $this->hasMany('I18nPageMeta','page_id');
     }
     #*/
-
 }
