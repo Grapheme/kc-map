@@ -1,25 +1,24 @@
 {{ Form::model($news, array('url'=>link::auth('news/update/'.$news->id),'class'=>'smart-form','id'=>'news-form','role'=>'form','method'=>'post')) }}
-
-
     <div class="well">
         <header>Для редактирования новости заполните форму:</header>
         <fieldset>
             <section class="col col-6">
-                <label class="label">
-                    Идентификатор новости
-                    <div class="note">Может содержать <strong>только</strong> английские буквы в нижнем регистре, цифры, знаки подчеркивания и тире</div>
-                </label>
+               <label class="label">Идентификатор новости</label>
                 <label class="input col-11"> <i class="icon-append fa fa-list-alt"></i>
                     {{ Form::text('slug', $news->slug) }}
                 </label>
+                 <div class="note">Может содержать <strong>только</strong> английские буквы в нижнем регистре, цифры, знаки подчеркивания и тире</div>
             </section>
-            @if(Allow::valid_access('templates'))
-            <section class="col col-6">
-                <label class="label">
-                    Шаблон новости:
-                    <div class="note">Если обычная новость - то выбирайте news.</div>
+            <section class="col col-3">
+                <label class="label">Дата публикации:</label>
+                <label class="input col-3">
+                    <input type="text" name="published_at" value="<?=date("d.m.Y", strtotime($news->published_at))?>" class="datepicker" />
                 </label>
-                <label class="select col-11">
+            </section>
+            @if(Allow::module('templates'))
+            <section>
+                <label class="label">Шаблон новости:</label>
+                <label class="select col-5">
                     @foreach($templates as $template)
                         <?php $temps[$template->name] = $template->name;?>
                     @endforeach
@@ -27,12 +26,6 @@
                 </label>
             </section>
             @endif
-            <section class="col col-6">
-                <label class="label">Дата публикации:</label>
-                <label class="select col-5">
-                    <input type="text" name="published_at" value="<?=date("d.m.Y", strtotime($news->published_at))?>" class="datepicker" />
-                </label>
-            </section>
         </fieldset>
     </div>
 
