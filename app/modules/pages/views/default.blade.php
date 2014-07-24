@@ -40,10 +40,9 @@
 <script type="application/javascript">
     var KcMap = KcMap || {};
     ymaps.ready(function(){
-        KcMap = new ymaps.Map('map',{center: [55.76, 37.64],zoom: 7});
+        KcMap = new ymaps.Map('map',{center: [44.226863,42.04677],zoom: 8,controls: ['zoomControl', 'fullscreenControl']});
         refreshDataMap();
     });
-
     function refreshDataMap(){
         KcMap.geoObjects.removeAll();
         $(".show-map-objects:checked").each(function (element_index, element) {
@@ -61,7 +60,6 @@
     }
     function setMarkerByAddress(object) {
 
-        console.log(object.address);
         ymaps.geocode(object.address, {
             results: 1
         }).then(function (res) {
@@ -70,6 +68,7 @@
                 bounds = firstGeoObject.properties.get('boundedBy');
             KcMap.geoObjects.add(firstGeoObject);
             KcMap.setBounds(bounds, {checkZoomRange: true});
+            console.log(object.address+' - '+coords);
             var newPlacemark = new ymaps.Placemark(coords, {
                 hintContent : object.balloon.hintContent,
                 balloonContentHeader : object.balloon.balloonContentHeader,
@@ -80,6 +79,7 @@
                 iconColor: object.marker.iconColor
             });
             KcMap.geoObjects.add(newPlacemark);
+            KcMap.setCenter([44.226863,42.04677],8,{checkZoomRange: true});
         });
 
     }

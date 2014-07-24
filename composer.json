@@ -7,9 +7,10 @@
 		"laravel/framework": "4.2.*",
 		"way/generators": "*",
 		"intervention/image": "dev-master",
-        "barryvdh/laravel-ide-helper": "1.x-dev",
+        "barryvdh/laravel-ide-helper": "1.*",
 		"doctrine/dbal": "2.5.x-dev",
-		"barryvdh/laravel-debugbar": "1.x-dev"
+		"barryvdh/laravel-debugbar": "1.x-dev",
+		"scalia/sphinxsearch": "0.1.1"
 	},
 	"autoload": {
 		"classmap": [
@@ -21,7 +22,10 @@
 			"app/database/seeds",
 			"app/tests/TestCase.php",
 			"app/libraries"
-		]
+		],
+        "files" : [
+            "app/helpers.php"
+        ]
 	},
 	"scripts": {
 		"post-install-cmd": [
