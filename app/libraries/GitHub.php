@@ -95,7 +95,7 @@ class GitHub {
 
         try {
             system("/bin/chown -R ".$this->user_name." ".getcwd().$path);
-            system("/bin/chgrp -R ".$this->user_name." ".getcwd().$path);
+            system("/bin/chgrp -R ".$this->user_group." ".getcwd().$path);
         } catch (Exception $e) {
             return 'Ошибка при смене владельца';
         }
