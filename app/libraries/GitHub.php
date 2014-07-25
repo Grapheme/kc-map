@@ -96,17 +96,17 @@ class GitHub {
         try {
             system("/bin/chown -R ".$this->user_name." ".base_path($path));
         } catch (Exception $e) {
-            return 'Ошибка при смене владельца. Путь: '.base_path($path)."\n";
+            return $e->getMessage().'. Ошибка при смене владельца. Путь: '.base_path($path)."\n";
         }
         try {
             system("/bin/chgrp -R ".$this->user_group." ".base_path($path));
         } catch (Exception $e) {
-            return 'Ошибка при смене группы владельца. Путь: '.base_path($path)."\n";
+            return $e->getMessage().'. Ошибка при смене группы владельца. Путь: '.base_path($path)."\n";
         }
         try {
             system("/bin/chmod -R ".$mode." ".base_path($path));
         } catch (Exception $e) {
-            return 'Ошибка при смене прав доступа. Путь: '.base_path($path)."\n";
+            return $e->getMessage().'. Ошибка при смене прав доступа. Путь: '.base_path($path)."\n";
         }
     }
 
