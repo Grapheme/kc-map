@@ -48,7 +48,7 @@ class AdminKcmapController extends BaseController {
                 'title' => 'Перечень объектов',
                 'link' => self::$group,
                 'class' => 'fa-location-arrow',
-                'permit' => 'kcmap',
+                'permit' => 'view',
             ),
         );
     }
