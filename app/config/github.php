@@ -9,8 +9,8 @@ return array(
     'branch'            => 'master',
     'repository_name'   => 'kc-map',
     'repository_id'     => 21685216,
-    'user_group'        => 'rikardo',
-    'user_name'         => 'rikardo',
+    'user_group'        => 'www-data',
+    'user_name'         => 'www-data',
     'set_log'           => TRUE,
     'directories'       => array('/public/uploads','/app/storage')
 );
