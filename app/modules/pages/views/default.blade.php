@@ -113,23 +113,30 @@
     }
     function setMarkerByAddress(object) {
 
+        /*
+        * preset: object.marker.preset,
+        * iconColor: object.marker.iconColor
+        */
         ymaps.geocode(object.address, {
             results: 1
         }).then(function (res) {
-            var firstGeoObject = res.geoObjects.get(0),
-                coords = firstGeoObject.geometry.getCoordinates(),
-                bounds = firstGeoObject.properties.get('boundedBy');
-            KcMap.geoObjects.add(firstGeoObject);
+            var newGeoObject = res.geoObjects.get(0),
+                coords = newGeoObject.geometry.getCoordinates(),
+                bounds = newGeoObject.properties.get('boundedBy');
             KcMap.setBounds(bounds, {checkZoomRange: true});
+
             console.log(object.address+' - '+coords);
+
             var newPlacemark = new ymaps.Placemark(coords, {
                 hintContent : object.balloon.hintContent,
                 balloonContentHeader : object.balloon.balloonContentHeader,
                 balloonContentBody: object.balloon.balloonContentBody,
                 balloonContentFooter : object.balloon.balloonContentFooter
             }, {
-                preset: object.marker.preset,
-                iconColor: object.marker.iconColor
+                iconLayout: object.marker.iconLayout,
+                iconImageHref: object.marker.iconImageHref,
+                iconImageSize: object.marker.iconImageSize,
+                iconImageOffset: object.marker.iconImageOffset
             });
             KcMap.geoObjects.add(newPlacemark);
             KcMap.setCenter([44.226863,42.04677],9,{checkZoomRange: true});

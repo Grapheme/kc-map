@@ -11,8 +11,3 @@ function is_image($filename){
         return true;
     endif;
 }
-
-function hexColor(){
-
-   return '#'.dechex(rand(0, 255)).dechex(rand(0, 255)).dechex(rand(0, 255));
-}

@@ -121,6 +121,5 @@ class Helper {
 
         return $array;
     }
-
 }
 

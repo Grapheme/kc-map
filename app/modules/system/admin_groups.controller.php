@@ -134,7 +134,7 @@ class AdminGroupsController extends BaseController {
         }
         #Helper::dd($actions);
         $group_actions = $actions;
-
+        
 		return View::make($this->module['tpl'].'edit', compact('groups', 'group', 'mod_actions', 'mod_info', 'group_actions'));
 	}
 

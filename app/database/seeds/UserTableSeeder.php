@@ -4,8 +4,6 @@ class UserTableSeeder extends Seeder{
 
 	public function run(){
 		
-		#DB::table('users')->truncate();
-
 		User::create(array(
             'group_id'=>1,
 			'name'=>'Администратор',
@@ -23,7 +21,7 @@ class UserTableSeeder extends Seeder{
             'group_id'=>2,
 			'name'=>'Пользователь',
 			'surname'=>'',
-			'email'=>'user@lessad.ru',
+			'email'=>'user@kc-map.ru',
 			'active'=>1,
 			'password'=>Hash::make('000000000'),
 			'photo'=>'',
@@ -36,7 +34,7 @@ class UserTableSeeder extends Seeder{
             'group_id'=>3,
 			'name'=>'Модератор',
 			'surname'=>'',
-			'email'=>'moder@lessad.ru',
+			'email'=>'moder@kc-map.ru',
 			'active'=>1,
 			'password'=>Hash::make('111111111'),
 			'photo'=>'',
