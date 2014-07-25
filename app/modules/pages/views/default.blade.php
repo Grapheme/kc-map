@@ -124,9 +124,7 @@
                 coords = newGeoObject.geometry.getCoordinates(),
                 bounds = newGeoObject.properties.get('boundedBy');
             KcMap.setBounds(bounds, {checkZoomRange: true});
-
             console.log(object.address+' - '+coords);
-
             var newPlacemark = new ymaps.Placemark(coords, {
                 hintContent : object.balloon.hintContent,
                 balloonContentHeader : object.balloon.balloonContentHeader,
