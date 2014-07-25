@@ -114,6 +114,7 @@
     function setMarkerByAddress(object) {
 
         /*
+        * Для стандартных иконок маркеров
         * preset: object.marker.preset,
         * iconColor: object.marker.iconColor
         */
