@@ -94,17 +94,17 @@ class GitHub {
         endif;
 
         try {
-            system("/bin/chown -R ".$this->user_name." ".getcwd().$path);
+            system("/bin/chown -R ".$this->user_name." ".base_path($path));
         } catch (Exception $e) {
             return 'Ошибка при смене владельца';
         }
         try {
-            system("/bin/chgrp -R ".$this->user_group." ".getcwd().$path);
+            system("/bin/chgrp -R ".$this->user_group." ".base_path($path));
         } catch (Exception $e) {
             return 'Ошибка при смене группы владельца';
         }
         try {
-            system("/bin/chmod -R ".$mode." ".getcwd().$path);
+            system("/bin/chmod -R ".$mode." ".base_path($path));
         } catch (Exception $e) {
             return 'Ошибка при смене прав доступа';
         }
