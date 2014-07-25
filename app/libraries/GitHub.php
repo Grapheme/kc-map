@@ -94,20 +94,17 @@ class GitHub {
         endif;
 
         try {
-            $escaped_command = escapeshellcmd("/bin/chown -R ".$this->user_name." ".base_path($path));
-            system($escaped_command);
+            shell_exec("/bin/chown -R ".$this->user_name." ".base_path($path));
         } catch (Exception $e) {
             return $e->getMessage().'. Ошибка при смене владельца. Путь: '.base_path($path)."\n";
         }
         try {
-            $escaped_command = escapeshellcmd("/bin/chgrp -R ".$this->user_group." ".base_path($path));
-            system($escaped_command);
+            shell_exec("/bin/chgrp -R ".$this->user_group." ".base_path($path));
         } catch (Exception $e) {
             return $e->getMessage().'. Ошибка при смене группы владельца. Путь: '.base_path($path)."\n";
         }
         try {
-            $escaped_command = escapeshellcmd("/bin/chmod -R ".$mode." ".base_path($path));
-            system($escaped_command);
+            shell_exec("/bin/chmod -R ".$mode." ".base_path($path));
         } catch (Exception $e) {
             return $e->getMessage().'. Ошибка при смене прав доступа. Путь: '.base_path($path)."\n";
         }
