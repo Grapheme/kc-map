@@ -478,7 +478,7 @@ class Application extends Container implements HttpKernelInterface, TerminableIn
     }
     public static function getBootstrapFile()
     {
-        return '/var/www/rikardo/data/www/kc-map.ru/vendor/laravel/framework/src/Illuminate/Foundation' . '/start.php';
+        return 'F:\\home\\kc-map\\www\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation' . '/start.php';
     }
     public function startExceptionHandling()
     {
@@ -1346,6 +1346,7 @@ class Request
     }
     public function overrideGlobals()
     {
+        $this->server->set('QUERY_STRING', static::normalizeQueryString(http_build_query($this->query->all(), null, '&')));
         $_GET = $this->query->all();
         $_POST = $this->request->all();
         $_SERVER = $this->server->all();
@@ -3388,10 +3389,10 @@ class ErrorHandler
         }
         if ($this->displayErrors && error_reporting() & $level && $this->level & $level) {
             if (!class_exists('Symfony\\Component\\Debug\\Exception\\ContextErrorException')) {
-                require '/var/www/rikardo/data/www/kc-map.ru/vendor/symfony/debug/Symfony/Component/Debug' . '/Exception/ContextErrorException.php';
+                require 'F:\\home\\kc-map\\www\\vendor\\symfony\\debug\\Symfony\\Component\\Debug' . '/Exception/ContextErrorException.php';
             }
             if (!class_exists('Symfony\\Component\\Debug\\Exception\\FlattenException')) {
-                require '/var/www/rikardo/data/www/kc-map.ru/vendor/symfony/debug/Symfony/Component/Debug' . '/Exception/FlattenException.php';
+                require 'F:\\home\\kc-map\\www\\vendor\\symfony\\debug\\Symfony\\Component\\Debug' . '/Exception/FlattenException.php';
             }
             if (PHP_VERSION_ID < 50400 && isset($context['GLOBALS']) && is_array($context)) {
                 unset($context['GLOBALS']);
@@ -3404,7 +3405,7 @@ class ErrorHandler
             if (is_array($exceptionHandler) && $exceptionHandler[0] instanceof ExceptionHandler) {
                 $exceptionHandler[0]->handle($exception);
                 if (!class_exists('Symfony\\Component\\Debug\\Exception\\DummyException')) {
-                    require '/var/www/rikardo/data/www/kc-map.ru/vendor/symfony/debug/Symfony/Component/Debug' . '/Exception/DummyException.php';
+                    require 'F:\\home\\kc-map\\www\\vendor\\symfony\\debug\\Symfony\\Component\\Debug' . '/Exception/DummyException.php';
                 }
                 set_exception_handler(function (\Exception $e) use($exceptionHandler) {
                     if (!$e instanceof DummyException) {
@@ -8484,7 +8485,8 @@ class StreamHandler extends AbstractProcessingHandler
     protected $url;
     private $errorMessage;
     protected $filePermission;
-    public function __construct($stream, $level = Logger::DEBUG, $bubble = true, $filePermission = null)
+    protected $useLocking;
+    public function __construct($stream, $level = Logger::DEBUG, $bubble = true, $filePermission = null, $useLocking = false)
     {
         parent::__construct($level, $bubble);
         if (is_resource($stream)) {
@@ -8493,6 +8495,7 @@ class StreamHandler extends AbstractProcessingHandler
             $this->url = $stream;
         }
         $this->filePermission = $filePermission;
+        $this->useLocking = $useLocking;
     }
     public function close()
     {
@@ -8519,7 +8522,13 @@ class StreamHandler extends AbstractProcessingHandler
                 throw new \UnexpectedValueException(sprintf('The stream or file "%s" could not be opened: ' . $this->errorMessage, $this->url));
             }
         }
+        if ($this->useLocking) {
+            flock($this->stream, LOCK_EX);
+        }
         fwrite($this->stream, (string) $record['formatted']);
+        if ($this->useLocking) {
+            flock($this->stream, LOCK_UN);
+        }
     }
     private function customErrorHandler($code, $msg)
     {
@@ -8537,14 +8546,14 @@ class RotatingFileHandler extends StreamHandler
     protected $nextRotation;
     protected $filenameFormat;
     protected $dateFormat;
-    public function __construct($filename, $maxFiles = 0, $level = Logger::DEBUG, $bubble = true, $filePermission = null)
+    public function __construct($filename, $maxFiles = 0, $level = Logger::DEBUG, $bubble = true, $filePermission = null, $useLocking = false)
     {
         $this->filename = $filename;
         $this->maxFiles = (int) $maxFiles;
         $this->nextRotation = new \DateTime('tomorrow');
         $this->filenameFormat = '{filename}-{date}';
         $this->dateFormat = 'Y-m-d';
-        parent::__construct($this->getTimedFilename(), $level, $bubble, $filePermission);
+        parent::__construct($this->getTimedFilename(), $level, $bubble, $filePermission, $useLocking);
     }
     public function close()
     {
@@ -10657,7 +10666,7 @@ class PrettyPageHandler extends Handler
             return Handler::DONE;
         }
         if (!($resources = $this->getResourcesPath())) {
-            $resources = '/var/www/rikardo/data/www/kc-map.ru/vendor/filp/whoops/src/Whoops/Handler' . '/../Resources';
+            $resources = 'F:\\home\\kc-map\\www\\vendor\\filp\\whoops\\src\\Whoops\\Handler' . '/../Resources';
         }
         $templateFile = "{$resources}/pretty-template.php";
         $cssFile = "{$resources}/pretty-page.css";

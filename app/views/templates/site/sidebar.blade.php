@@ -4,42 +4,22 @@ $cities = City::orderBy('title')->with(array('map_objects' => function ($query) 
         $query->groupBy('city_id');
         $query->groupBy('category_id');
     }))->get();
+
+$categories = Category::orderBy('title')->lists('title','id');
 ?>
 
 <aside class="aside clearfix">
     <h2 class="aside-header">Объекты на карте</h2>
     <h3>По сфере деятельности:</h3>
     <ul class="cat-list clearfix">
+    @foreach($categories as $category_id => $category_title)
     	<li>
     		<label class="checkbox">
-    			<input type="checkbox" name="categories2[]" class="show-map-objects">
-    			Объекты образования
+    			<input type="checkbox" autocomplete="off" data-category="{{ $category_id }}" name="group_categories[]" class="group-map-objects">
+    			{{ $category_title }}
     		</label>
     	</li>
-    	<li>
-    		<label class="checkbox">
-    			<input type="checkbox" name="categories2[]" class="show-map-objects">
-    			Объекты жилищно-коммунального хозяйства
-    		</label>
-    	</li>
-    	<li>
-    		<label class="checkbox">
-    			<input type="checkbox" name="categories2[]" class="show-map-objects">
-    			Объекты здравоохранения
-    		</label>
-    	</li>
-    	<li>
-    		<label class="checkbox">
-    			<input type="checkbox" name="categories2[]" class="show-map-objects">
-    			Объекты физической культуры и спорта
-    		</label>
-    	</li>
-    	<li>
-    		<label class="checkbox">
-    			<input type="checkbox" name="categories2[]" class="show-map-objects">
-    			Объекты культуры
-    		</label>
-    	</li>
+    @endforeach
     </ul>
     <h3>По районам:</h3>
     <ul class="aside-list list-unstyled clearfix">

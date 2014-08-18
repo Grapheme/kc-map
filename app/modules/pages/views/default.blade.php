@@ -91,7 +91,6 @@
 	#legend ul li span { font-weight: 300; font-size: 1.2em; font-style: italic; }
 </style>
 @stop
-
 @section('content')
 @include('kcmap/views/default')
 @stop
@@ -175,6 +174,15 @@
 
     $(function () {
         $(".show-map-objects").click(function () {refreshDataMap();});
+        $(".group-map-objects").click(function () {
+            var category_id = $(this).attr('data-category');
+            if(this.checked){
+                $(".show-map-objects[data-category="+category_id+"]").prop("checked", true);
+            }else{
+                $(".show-map-objects[data-category="+category_id+"]").prop("checked", false);
+            }
+            refreshDataMap();
+        });
     });
 </script>
 @stop
