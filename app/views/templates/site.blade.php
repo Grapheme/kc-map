@@ -18,7 +18,17 @@
     <![endif]-->
 
     @include('templates.site.header')
-
+	
+	<div id="legend">
+		<ul>
+			<li><span>Обозначения на карте:</span></li>
+			<li><img src="/theme/img/markers/1-1.png" alt="" />Образование</li>
+			<li><img src="/theme/img/markers/2-1.png" alt="" />ЖКХ</li>
+			<li><img src="/theme/img/markers/3-1.png" alt="" />Здравоохранение</li>
+			<li><img src="/theme/img/markers/4-1.png" alt="" />Спорт</li>
+			<li><img src="/theme/img/markers/5-1.png" alt="" />Культура</li>
+		</ul>
+	</div>
     <div id="content clearfix">
         @include('templates.site.sidebar')
         @yield('content', @$content)

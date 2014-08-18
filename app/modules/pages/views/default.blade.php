@@ -24,7 +24,12 @@
     	font-weight: 300;
     	margin: 0 0 1em;
     }
-    h2.aside-header + ul.aside-list > li {
+    h3 {
+    	font-weight: 300;
+		font-style: italic;
+		margin: 1.5em 0 0.25em;
+    }
+    h3 + ul.aside-list > li {
     	font-weight: 600;
     	margin: 1em 0 0.5em 0;
     	border-bottom: 1px dotted;
@@ -33,6 +38,9 @@
     	cursor: pointer;
     }
 
+	.cat-list { margin: 1em 0 1.75em; }
+	.cat-list li { line-height: 1.7em;  }
+	
 	.map-wrapper {
 		width: 68%;
 		float: left;
@@ -56,6 +64,8 @@
     	max-width: 320px;
     	float: left;
     	padding: 0 1em 0 2em;
+    	position: relative;
+		top: -4.7em;
     }
     /* Оформление меню (начало)*/
     .menu {
@@ -72,7 +82,13 @@
     .submenu li {
         
     }
+
     /* Оформление меню (конец)*/
+   
+    #legend ul { margin: 1.5em 0 2.5em 30em; }
+	#legend ul li { display: inline-block; margin: 0 1.2em 0 0; }
+	#legend ul li img { max-width: 20px; margin: 0 0.5em; }
+	#legend ul li span { font-weight: 300; font-size: 1.2em; font-style: italic; }
 </style>
 @stop
 
@@ -85,7 +101,7 @@
 {{ HTML::script('get-objects') }}
 <script type="application/javascript">
 	$(function(){
-		$('h2.aside-header + ul.aside-list > li').click(function(){
+		$('h3 + ul.aside-list > li').click(function(){
 			var id = $(this).attr('id').replace('parent-',''); 
 			$('#child-'+id).toggle();
 		});

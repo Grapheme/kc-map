@@ -8,6 +8,40 @@ $cities = City::orderBy('title')->with(array('map_objects' => function ($query) 
 
 <aside class="aside clearfix">
     <h2 class="aside-header">Объекты на карте</h2>
+    <h3>По сфере деятельности:</h3>
+    <ul class="cat-list clearfix">
+    	<li>
+    		<label class="checkbox">
+    			<input type="checkbox" name="categories2[]" class="show-map-objects">
+    			Объекты образования
+    		</label>
+    	</li>
+    	<li>
+    		<label class="checkbox">
+    			<input type="checkbox" name="categories2[]" class="show-map-objects">
+    			Объекты жилищно-коммунального хозяйства
+    		</label>
+    	</li>
+    	<li>
+    		<label class="checkbox">
+    			<input type="checkbox" name="categories2[]" class="show-map-objects">
+    			Объекты здравоохранения
+    		</label>
+    	</li>
+    	<li>
+    		<label class="checkbox">
+    			<input type="checkbox" name="categories2[]" class="show-map-objects">
+    			Объекты физической культуры и спорта
+    		</label>
+    	</li>
+    	<li>
+    		<label class="checkbox">
+    			<input type="checkbox" name="categories2[]" class="show-map-objects">
+    			Объекты культуры
+    		</label>
+    	</li>
+    </ul>
+    <h3>По районам:</h3>
     <ul class="aside-list list-unstyled clearfix">
         @foreach($cities as $city)
         @if($city->map_objects->count())
